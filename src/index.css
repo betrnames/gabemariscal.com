@@ -308,6 +308,9 @@ html.light .aurora-blob-3 {
   background: var(--card);
   border: 1px solid var(--border);
   position: relative;
+  /* Scale type to the card, not the viewport */
+  container-type: inline-size;
+  container-name: project;
 }
 
 .project-placeholder {
@@ -329,7 +332,7 @@ html.light .aurora-blob-3 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem 1.75rem;
+  padding: clamp(0.65rem, 4cqi, 1.75rem) clamp(0.65rem, 5cqi, 1.75rem);
   text-align: center;
   transition:
     transform 0.65s var(--ease-out-expo),
@@ -340,12 +343,18 @@ html.light .aurora-blob-3 {
 .project-panel-name {
   transform: translateY(0);
   opacity: 1;
+  width: 100%;
+  max-width: 100%;
+  align-items: center;
 }
 
 .project-panel-desc {
   transform: translateY(28%);
   opacity: 0;
   pointer-events: none;
+  width: 100%;
+  max-width: 100%;
+  padding-inline: clamp(0.25rem, 2cqi, 0.75rem);
 }
 
 /* Hover only on the media frame — not the text column */
@@ -397,64 +406,117 @@ html.light .aurora-blob-3 {
   font-family: var(--font-display);
   font-weight: 800;
   letter-spacing: -0.03em;
-  line-height: 0.95;
+  line-height: 1.05;
   color: var(--foreground);
-  font-size: clamp(1.75rem, 4.5vw, 3.25rem);
-  max-width: 90%;
-  word-break: break-word;
+  /* Scales with card width — stays legible, avoids mid-word wrap on mobile */
+  font-size: clamp(1.05rem, 6.2cqi + 0.35rem, 3.25rem);
+  max-width: min(100%, 92cqi);
+  width: max-content;
+  margin-inline: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
+}
+
+/* If name is still too long for one line on tiny cards, allow a soft 2-line wrap */
+@container project (max-width: 280px) {
+  .project-placeholder-name {
+    white-space: normal;
+    width: 100%;
+    max-width: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    text-overflow: ellipsis;
+    font-size: clamp(0.95rem, 8cqi, 1.35rem);
+    letter-spacing: -0.02em;
+  }
 }
 
 .project-placeholder-role {
-  margin-top: 0.85rem;
+  margin-top: clamp(0.35rem, 1.5cqi, 0.85rem);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
+  font-size: clamp(0.5rem, 1.6cqi + 0.3rem, 0.7rem);
+  letter-spacing: clamp(0.06em, 0.4cqi, 0.18em);
   text-transform: uppercase;
   color: var(--muted-foreground);
+  max-width: min(100%, 90cqi);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-inline: auto;
 }
 
 .project-placeholder-desc {
-  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
-  line-height: 1.55;
+  font-size: clamp(0.8rem, 2.4cqi + 0.45rem, 1.15rem);
+  line-height: 1.45;
   color: var(--foreground);
-  max-width: 28rem;
+  max-width: min(28rem, 100%);
+  width: 100%;
   opacity: 0.92;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  overflow: hidden;
 }
 
 .project-placeholder-hint {
-  margin-top: 1rem;
+  margin-top: clamp(0.5rem, 2cqi, 1rem);
   font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
+  font-size: clamp(0.5rem, 1.4cqi + 0.3rem, 0.65rem);
+  letter-spacing: clamp(0.08em, 0.35cqi, 0.2em);
   text-transform: uppercase;
   color: var(--primary);
+  white-space: nowrap;
 }
 
 /* Compact type for “More work” grid cards */
 .project-media--sm .project-placeholder-name {
-  font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+  font-size: clamp(0.95rem, 5.5cqi + 0.25rem, 1.55rem);
   letter-spacing: -0.02em;
 }
 
 .project-media--sm .project-placeholder-role {
-  margin-top: 0.5rem;
-  font-size: 0.6rem;
-  letter-spacing: 0.14em;
+  margin-top: clamp(0.3rem, 1.2cqi, 0.5rem);
+  font-size: clamp(0.45rem, 1.4cqi + 0.25rem, 0.6rem);
+  letter-spacing: clamp(0.05em, 0.3cqi, 0.14em);
 }
 
 .project-media--sm .project-placeholder-desc {
-  font-size: clamp(0.8rem, 1.2vw, 0.9rem);
-  line-height: 1.45;
-  max-width: 18rem;
+  font-size: clamp(0.72rem, 2.2cqi + 0.35rem, 0.9rem);
+  line-height: 1.4;
+  max-width: 100%;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
 }
 
 .project-media--sm .project-placeholder-hint {
-  margin-top: 0.65rem;
-  font-size: 0.55rem;
+  margin-top: clamp(0.4rem, 1.5cqi, 0.65rem);
+  font-size: clamp(0.45rem, 1.2cqi + 0.25rem, 0.55rem);
 }
 
 .project-media--sm .project-panel {
-  padding: 1rem 1.15rem;
+  padding: clamp(0.55rem, 3.5cqi, 1rem) clamp(0.55rem, 4cqi, 1.15rem);
+}
+
+/* Phone: keep tags from crowding the name */
+@media (max-width: 640px) {
+  .project-placeholder-name {
+    font-size: clamp(1rem, 5.5vw, 1.85rem);
+  }
+
+  .project-media--sm .project-placeholder-name {
+    font-size: clamp(0.9rem, 4.5vw, 1.35rem);
+  }
+
+  .project-placeholder-role {
+    letter-spacing: 0.08em;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
