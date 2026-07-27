@@ -895,7 +895,7 @@ function Contact() {
         </Reveal>
 
         <Reveal delay={1} className="contact-heading-reveal">
-          <h2 className="contact-heading font-display font-bold tracking-tight text-foreground mb-8 sm:mb-10">
+          <h2 className="contact-heading font-display font-bold tracking-tight text-foreground">
             <span className="contact-heading-line">Let&apos;s build</span>
             <span className="contact-heading-line">
               <span className="contact-heading-word">something</span>{' '}
@@ -907,7 +907,7 @@ function Contact() {
         </Reveal>
 
         <Reveal delay={2}>
-          <p className="text-muted-foreground text-base sm:text-lg max-w-lg mb-12 sm:mb-16 leading-relaxed">
+          <p className="text-muted-foreground text-base sm:text-lg max-w-lg mt-2 mb-12 sm:mb-16 leading-relaxed">
             Have a product, brand, or automation problem? I take on select projects —
             remote, fast, and end-to-end.
           </p>

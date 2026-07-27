@@ -293,9 +293,9 @@ html.light .aurora-blob-3 {
   position: relative;
   z-index: 30;
   overflow: visible !important;
-  /* Keep full “g” descender inside the paint box while animating */
-  padding-bottom: 0.55em;
-  margin-bottom: -0.35em; /* pull following copy up without covering the g */
+  /* Space for full Syne “g” descender — do NOT use negative margin (covers the g) */
+  padding-bottom: 0.75em;
+  margin-bottom: 0;
 }
 
 .contact-heading {
@@ -303,9 +303,10 @@ html.light .aurora-blob-3 {
   z-index: 31;
   font-size: clamp(2.5rem, 8vw, 6.5rem);
   letter-spacing: -0.03em;
-  line-height: 1.22;
+  line-height: 1.35;
   overflow: visible !important;
-  padding-bottom: 0.35em;
+  padding-bottom: 0.5em;
+  margin-bottom: 0 !important; /* spacing comes from padding so g isn’t covered */
 }
 
 .contact-heading-line {
@@ -313,7 +314,8 @@ html.light .aurora-blob-3 {
   z-index: 32;
   display: block;
   overflow: visible !important;
-  padding-bottom: 0.18em;
+  padding-bottom: 0.28em;
+  line-height: 1.35;
 }
 
 /* “something” needs its own box so the g isn’t sliced by the line box */
@@ -321,8 +323,9 @@ html.light .aurora-blob-3 {
   display: inline-block;
   position: relative;
   z-index: 33;
-  padding-bottom: 0.22em;
-  line-height: 1.25;
+  padding-bottom: 0.4em;
+  margin-bottom: 0.1em;
+  line-height: 1.4;
   overflow: visible;
   vertical-align: baseline;
 }
