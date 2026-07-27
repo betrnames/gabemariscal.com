@@ -886,48 +886,21 @@ function About() {
 
 function Contact() {
   return (
-    <section id="contact" className="py-24 sm:py-32 lg:py-40 border-t border-border overflow-visible">
-      <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12 overflow-visible">
+    <section id="contact" className="py-24 sm:py-32 lg:py-40 border-t border-border">
+      <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12">
         <Reveal>
           <p className="font-mono text-[11px] tracking-[0.28em] uppercase text-primary mb-6">
             Contact
           </p>
         </Reveal>
 
-        {/*
-          SVG heading: Syne’s “g” descender was clipped by CSS line-boxes / compositor
-          layers no matter how much padding we added. SVG viewBox reserves ink room.
-        */}
-        <h2 className="contact-heading mb-10 sm:mb-12">
-          <span className="sr-only">Let&apos;s build something loud.</span>
-          <svg
-            className="contact-heading-svg"
-            viewBox="0 0 1100 380"
-            xmlns="http://www.w3.org/2000/svg"
-            role="presentation"
-            aria-hidden="true"
-            preserveAspectRatio="xMinYMid meet"
-          >
-            <text
-              x="0"
-              y="145"
-              className="contact-heading-svg-main"
-              fill="currentColor"
-            >
-              Let&apos;s build
-            </text>
-            <text
-              x="0"
-              y="310"
-              className="contact-heading-svg-main"
-              fill="currentColor"
-            >
-              something{' '}
-              <tspan className="contact-heading-svg-accent" fill="var(--primary)">
-                loud.
-              </tspan>
-            </text>
-          </svg>
+        {/* No Reveal here — opacity/transform layers clip Syne’s “g” descender */}
+        <h2 className="contact-heading font-display font-bold text-foreground mb-8 sm:mb-10">
+          <span className="contact-heading-line">Let&apos;s build</span>
+          <span className="contact-heading-line contact-heading-line--loud">
+            something{' '}
+            <span className="font-serif italic font-normal text-primary">loud.</span>
+          </span>
         </h2>
 
         <Reveal delay={1}>
@@ -937,7 +910,7 @@ function Contact() {
           </p>
         </Reveal>
 
-        <Reveal delay={3}>
+        <Reveal delay={2}>
           <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10">
             <a
               href={safeHref('mailto:contact@gabemariscal.com')}

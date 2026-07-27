@@ -281,54 +281,35 @@ html.light .aurora-blob-3 {
   }
 }
 
-/* ─── Contact heading (SVG — no CSS line-box clipping of Syne “g”) ─── */
-#contact {
-  position: relative;
-  z-index: 5;
-  overflow: visible;
-}
-
+/* ─── Contact heading ─── */
+/*
+  Syne’s “g” ink extends past the CSS line box. Browsers clip that ink when
+  the heading (or an ancestor) is on a composited layer (opacity/transform).
+  Fix: plain HTML (no Reveal), roomy line-height, overflow-clip-margin.
+*/
 .contact-heading {
-  margin: 0;
-  color: var(--foreground);
-  max-width: 100%;
+  font-size: clamp(2.5rem, 8vw, 6.5rem);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin: 0 0 2rem;
   overflow: visible;
+  /* Extend paint past the border box so descenders aren’t sliced */
+  overflow-clip-margin: 1.5em;
+  contain: none;
 }
 
-.contact-heading-svg {
+.contact-heading-line {
   display: block;
-  width: min(100%, 56rem);
-  max-width: 100%;
-  height: auto;
   overflow: visible;
+  line-height: 1.2;
 }
 
-.contact-heading-svg-main {
-  font-family: var(--font-display), "Syne", ui-sans-serif, sans-serif;
-  font-weight: 800;
-  font-size: 148px;
-  letter-spacing: -0.04em;
-}
-
-.contact-heading-svg-accent {
-  font-family: var(--font-serif), "Instrument Serif", ui-serif, serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: 148px;
-  letter-spacing: -0.02em;
-}
-
-/* Screen-reader only (native h2 text) */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+/* Second line carries the “g” — extra line-height + clip margin */
+.contact-heading-line--loud {
+  line-height: 1.35;
+  padding-bottom: 0.35em;
+  overflow: visible;
+  overflow-clip-margin: 1.5em;
 }
 
 /* ─── Reveal on scroll ─── */
