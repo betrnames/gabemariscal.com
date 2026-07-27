@@ -12,7 +12,8 @@ const SECURITY_HEADERS: Record<string, string> = {
   'Permissions-Policy':
     'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()',
   'Cross-Origin-Opener-Policy': 'same-origin',
-  'Cross-Origin-Resource-Policy': 'same-origin',
+  // Do NOT set Cross-Origin-Resource-Policy: same-origin — it blocks
+  // Facebook/Twitter/LinkedIn OG image crawlers from fetching share images.
   'X-DNS-Prefetch-Control': 'on',
   'X-Permitted-Cross-Domain-Policies': 'none',
 }
