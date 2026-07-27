@@ -245,6 +245,42 @@ html.light .aurora-blob-3 {
   font-family: var(--font-serif);
 }
 
+/* ─── Hero title: fluid so “Mariscal.” never clips on mobile ─── */
+.hero-title {
+  /* Sized for longest line (“Mariscal.”) across 320px → desktop */
+  font-size: clamp(2rem, 0.35rem + 8.2vw, 9.5rem);
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+  max-width: 100%;
+  min-width: 0;
+  /* Extra room so tight leading doesn’t crop Syne caps */
+  padding-block: 0.04em 0.08em;
+  overflow: visible;
+}
+
+.hero-title-line {
+  display: block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: visible;
+}
+
+/* Very narrow phones (≤360px): scale a bit harder */
+@media (max-width: 360px) {
+  .hero-title {
+    font-size: clamp(1.85rem, 11.5vw, 2.75rem);
+    letter-spacing: -0.035em;
+    line-height: 0.96;
+  }
+}
+
+/* Short viewports: keep title + CTAs usable without crushing */
+@media (max-height: 700px) and (max-width: 768px) {
+  .hero-title {
+    font-size: clamp(1.9rem, 7.5vw, 3.5rem);
+  }
+}
+
 /* ─── Reveal on scroll ─── */
 .reveal {
   opacity: 0;

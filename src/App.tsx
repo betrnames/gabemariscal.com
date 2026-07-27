@@ -440,8 +440,8 @@ function Nav({ theme, onToggleTheme }: { theme: Theme; onToggleTheme: () => void
 
 function Hero() {
   return (
-    <section className="relative min-h-[100svh] flex flex-col overflow-hidden">
-      <div className="aurora absolute inset-0">
+    <section className="relative min-h-[100svh] flex flex-col overflow-x-clip">
+      <div className="aurora absolute inset-0 overflow-hidden" aria-hidden>
         <div className="aurora-blob aurora-blob-1" />
         <div className="aurora-blob aurora-blob-2" />
         <div className="aurora-blob aurora-blob-3" />
@@ -449,28 +449,28 @@ function Hero() {
       </div>
 
       {/* Centered block — was justify-end which left a huge empty band above the title */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center max-w-[1600px] w-full mx-auto px-5 sm:px-8 lg:px-12 pt-24 sm:pt-28 pb-10 sm:pb-12">
-        <p className="hero-rise hero-rise-1 font-mono text-[11px] sm:text-xs tracking-[0.28em] uppercase text-primary mb-5 sm:mb-6">
+      <div className="relative z-10 flex-1 flex flex-col justify-center max-w-[1600px] w-full mx-auto px-5 sm:px-8 lg:px-12 pt-24 sm:pt-28 pb-10 sm:pb-12 min-w-0">
+        <p className="hero-rise hero-rise-1 font-mono text-[10px] sm:text-xs tracking-[0.16em] sm:tracking-[0.28em] uppercase text-primary mb-4 sm:mb-6 max-w-full">
           Creative Designer · Developer · Builder
         </p>
 
-        <h1 className="hero-rise hero-rise-2 font-display font-extrabold tracking-[-0.04em] leading-[0.88] text-foreground select-none">
-          <span className="block text-[clamp(3.25rem,12vw,9.5rem)]">Gabe</span>
-          <span className="block text-[clamp(3.25rem,12vw,9.5rem)]">
+        <h1 className="hero-title hero-rise hero-rise-2 font-display font-extrabold text-foreground select-none">
+          <span className="hero-title-line">Gabe</span>
+          <span className="hero-title-line">
             Mariscal
             <span className="text-primary">.</span>
           </span>
         </h1>
 
-        <div className="hero-rise hero-rise-3 mt-6 sm:mt-8 max-w-xl">
-          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+        <div className="hero-rise hero-rise-3 mt-5 sm:mt-8 max-w-xl">
+          <p className="text-[0.95rem] sm:text-base md:text-lg text-muted-foreground leading-relaxed">
             I design and ship digital products that feel premium — websites, AI tools,
             and brands for people who care how things look{' '}
             <em className="font-serif text-foreground not-italic">and</em> work.
           </p>
         </div>
 
-        <div className="hero-rise hero-rise-4 mt-8 sm:mt-10 flex flex-wrap items-center gap-4 sm:gap-6">
+        <div className="hero-rise hero-rise-4 mt-7 sm:mt-10 flex flex-wrap items-center gap-4 sm:gap-6">
           <a
             href="#work"
             className="group inline-flex items-center gap-3 bg-foreground text-background font-medium text-sm rounded-full pl-6 pr-5 py-3.5 hover:bg-primary transition-colors duration-300"
