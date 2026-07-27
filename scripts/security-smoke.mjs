@@ -82,7 +82,15 @@ for (const key of [
 
 const html = readFileSync(join(root, 'index.html'), 'utf8')
 assert(html.includes('Content-Security-Policy'), 'index.html CSP meta')
+assert(html.includes('analytics.google.com'), 'index.html CSP allows analytics.google.com apex')
 assert(html.includes('strict-origin-when-cross-origin'), 'index.html referrer meta')
+const vercelCsp = vercel.headers
+  .flatMap((h) => h.headers)
+  .find((x) => x.key === 'Content-Security-Policy')
+assert(
+  vercelCsp && vercelCsp.value.includes('https://analytics.google.com'),
+  'vercel.json CSP allows https://analytics.google.com'
+)
 assert(!html.includes('dangerouslySetInnerHTML'), 'no dangerouslySetInnerHTML in index.html')
 
 const app = readFileSync(join(root, 'src', 'App.tsx'), 'utf8')
