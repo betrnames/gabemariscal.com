@@ -293,8 +293,8 @@ html.light .aurora-blob-3 {
   position: relative;
   z-index: 30;
   overflow: visible !important;
-  /* Bottom pad keeps Syne “g” descender in the paint box */
-  padding-bottom: 0.65em;
+  /* Large bottom pad so Syne “g” descender fully clears any paint/clip edge */
+  padding-bottom: 1.25em;
   margin-bottom: 0;
 }
 
@@ -303,10 +303,9 @@ html.light .aurora-blob-3 {
   z-index: 31;
   font-size: clamp(2.5rem, 8vw, 6.5rem);
   letter-spacing: -0.03em;
-  /* Tighter leading (user request) + pad so g still clears */
-  line-height: 1.02;
+  line-height: 1.15;
   overflow: visible !important;
-  padding-bottom: 0.45em;
+  padding-bottom: 0.85em;
   margin-bottom: 0 !important;
 }
 
@@ -315,8 +314,8 @@ html.light .aurora-blob-3 {
   z-index: 32;
   display: block;
   overflow: visible !important;
-  padding-bottom: 0.35em;
-  line-height: 1.02;
+  padding-bottom: 0.55em;
+  line-height: 1.15;
 }
 
 /* “something” needs its own box so the g isn’t sliced by the line box */
@@ -324,9 +323,9 @@ html.light .aurora-blob-3 {
   display: inline-block;
   position: relative;
   z-index: 33;
-  padding-bottom: 0.35em;
-  margin-bottom: 0;
-  line-height: 1.05;
+  padding-bottom: 0.65em;
+  margin-bottom: 0.15em;
+  line-height: 1.2;
   overflow: visible;
   vertical-align: baseline;
 }
