@@ -6,6 +6,11 @@ import {
   type ReactNode,
 } from 'react'
 import { EXTERNAL_REL, isExternalHref, safeHref } from './lib/security'
+import {
+  applyTheme,
+  resolveInitialTheme,
+  type Theme,
+} from './lib/theme'
 
 /* ═══════════════════════════════════════════
    Data
@@ -223,11 +228,86 @@ function ArrowUpRight({ className = 'w-5 h-5' }: { className?: string }) {
   )
 }
 
+function SunIcon({ className = 'w-4 h-4' }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 3v1.5M12 19.5V21M4.22 4.22l1.06 1.06M18.72 18.72l1.06 1.06M3 12h1.5M19.5 12H21M4.22 19.78l1.06-1.06M18.72 5.28l1.06-1.06M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"
+      />
+    </svg>
+  )
+}
+
+function MoonIcon({ className = 'w-4 h-4' }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M21 14.25A8.25 8.25 0 1110.5 3.75 6.75 6.75 0 0021 14.25z"
+      />
+    </svg>
+  )
+}
+
+function useTheme() {
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof document === 'undefined') return 'dark'
+    return document.documentElement.classList.contains('light') ? 'light' : 'dark'
+  })
+
+  useEffect(() => {
+    const initial = resolveInitialTheme()
+    applyTheme(initial)
+    setTheme(initial)
+
+    const meta = document.querySelector('meta[name="theme-color"]')
+    if (meta) meta.setAttribute('content', initial === 'dark' ? '#08080a' : '#f6f4ef')
+  }, [])
+
+  const toggle = useCallback(() => {
+    setTheme((prev) => {
+      const next: Theme = prev === 'dark' ? 'light' : 'dark'
+      applyTheme(next)
+      const meta = document.querySelector('meta[name="theme-color"]')
+      if (meta) meta.setAttribute('content', next === 'dark' ? '#08080a' : '#f6f4ef')
+      return next
+    })
+  }, [])
+
+  return { theme, toggle }
+}
+
+function ThemeToggle({
+  theme,
+  onToggle,
+  className = '',
+}: {
+  theme: Theme
+  onToggle: () => void
+  className?: string
+}) {
+  const isDark = theme === 'dark'
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      className={`theme-toggle ${className}`}
+      aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+      title={isDark ? 'Light mode' : 'Dark mode'}
+    >
+      {isDark ? <SunIcon /> : <MoonIcon />}
+    </button>
+  )
+}
+
 /* ═══════════════════════════════════════════
    Nav
    ═══════════════════════════════════════════ */
 
-function Nav() {
+function Nav({ theme, onToggleTheme }: { theme: Theme; onToggleTheme: () => void }) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -283,6 +363,7 @@ function Nav() {
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
+            <ThemeToggle theme={theme} onToggle={onToggleTheme} />
             <span className="inline-flex items-center gap-2 text-[12px] font-mono text-muted-foreground border border-border rounded-full px-3 py-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-primary pulse-dot" />
               Available
@@ -295,21 +376,24 @@ function Nav() {
             </a>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            className="md:hidden p-2 -mr-2 text-foreground"
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            aria-expanded={open}
-          >
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              {open ? (
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h16M4 12h16M4 17h16" />
-              )}
-            </svg>
-          </button>
+          <div className="flex md:hidden items-center gap-1">
+            <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              className="p-2 -mr-2 text-foreground"
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+            >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                {open ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h16M4 12h16M4 17h16" />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -911,15 +995,16 @@ function Footer() {
 
 export default function App() {
   const progress = useScrollProgress()
+  const { theme, toggle } = useTheme()
 
   return (
-    <div className="noise min-h-screen">
+    <div className="noise min-h-screen transition-colors duration-300">
       <div
         className="scroll-progress"
         style={{ transform: `scaleX(${progress})` }}
         aria-hidden
       />
-      <Nav />
+      <Nav theme={theme} onToggleTheme={toggle} />
       <main>
         <Hero />
         <MarqueeBand />

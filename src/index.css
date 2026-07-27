@@ -7,7 +7,10 @@
    Warm midnight + bone + electric chartreuse
    ───────────────────────────────────────────── */
 
-:root {
+/* Default = dark (current brand). html.light overrides for light mode. */
+:root,
+html.dark {
+  color-scheme: dark;
   --background: #08080a;
   --foreground: #f2f0eb;
   --card: #111114;
@@ -34,6 +37,33 @@
   --radius: 0.75rem;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --aurora-base: #08080a;
+  --noise-opacity: 0.035;
+}
+
+html.light {
+  color-scheme: light;
+  --background: #f6f4ef;
+  --foreground: #121214;
+  --card: #ffffff;
+  --card-foreground: #121214;
+  --popover: #ffffff;
+  --popover-foreground: #121214;
+  --primary: #8fb820;
+  --primary-foreground: #0a0a0c;
+  --secondary: #ebe8e1;
+  --secondary-foreground: #121214;
+  --muted: #ebe8e1;
+  --muted-foreground: #5c5a55;
+  --accent: #f0f4e0;
+  --accent-foreground: #4a6a00;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: rgba(18, 18, 20, 0.1);
+  --input: #ebe8e1;
+  --ring: #8fb820;
+  --aurora-base: #f6f4ef;
+  --noise-opacity: 0.04;
 }
 
 @theme inline {
@@ -72,6 +102,9 @@
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
   }
 }
 
@@ -95,7 +128,7 @@ html {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  opacity: 0.035;
+  opacity: var(--noise-opacity);
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
@@ -107,7 +140,7 @@ html {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: #08080a;
+  background: var(--aurora-base);
 }
 
 .aurora-blob {
@@ -147,12 +180,48 @@ html {
   animation-delay: -8s;
 }
 
+html.light .aurora-blob-1 {
+  background: radial-gradient(circle, rgba(100, 150, 200, 0.35) 0%, transparent 70%);
+}
+html.light .aurora-blob-2 {
+  background: radial-gradient(circle, rgba(143, 184, 32, 0.2) 0%, transparent 70%);
+}
+html.light .aurora-blob-3 {
+  background: radial-gradient(circle, rgba(160, 140, 200, 0.22) 0%, transparent 70%);
+}
+
 .aurora-vignette {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 50% 40%, transparent 0%, #08080a 75%),
-    linear-gradient(to bottom, transparent 60%, #08080a 100%);
+    radial-gradient(ellipse 80% 60% at 50% 40%, transparent 0%, var(--aurora-base) 75%),
+    linear-gradient(to bottom, transparent 60%, var(--aurora-base) 100%);
+}
+
+/* Theme toggle */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted-foreground);
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
+}
+.theme-toggle:hover {
+  color: var(--foreground);
+  border-color: color-mix(in srgb, var(--foreground) 20%, transparent);
+  background: color-mix(in srgb, var(--foreground) 4%, transparent);
+}
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 
 @keyframes aurora-drift {

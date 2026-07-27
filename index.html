@@ -3,6 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Prevent theme flash: restore light/dark before paint (default dark) -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('gm-theme');
+          if (t !== 'light' && t !== 'dark') t = 'dark';
+          var r = document.documentElement;
+          r.classList.remove('light', 'dark');
+          r.classList.add(t);
+          r.style.colorScheme = t;
+        } catch (e) {}
+      })();
+    </script>
     <!-- Defense-in-depth when hosting without vercel.json/_headers -->
     <meta
       http-equiv="Content-Security-Policy"
