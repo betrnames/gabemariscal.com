@@ -281,10 +281,29 @@ html.light .aurora-blob-3 {
   }
 }
 
+/* ─── Contact heading (Syne “g” descenders need room) ─── */
+.contact-heading {
+  font-size: clamp(2.5rem, 8vw, 6.5rem);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  overflow: visible;
+  /* Glyphs in Syne sit outside the em box — pad so “g” isn’t sliced */
+  padding-bottom: 0.28em;
+}
+
+.contact-heading-line {
+  display: block;
+  overflow: visible;
+  /* Separate line boxes so descenders aren’t crushed by the next line */
+  padding-bottom: 0.08em;
+  margin-bottom: 0.02em;
+}
+
 /* ─── Reveal on scroll ─── */
 .reveal {
   opacity: 0;
   transform: translateY(36px);
+  overflow: visible;
   transition:
     opacity 0.9s var(--ease-out-expo),
     transform 0.9s var(--ease-out-expo);

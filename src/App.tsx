@@ -894,12 +894,13 @@ function Contact() {
           </p>
         </Reveal>
 
-        <Reveal delay={1}>
-          <h2 className="font-display font-bold text-[clamp(2.5rem,8vw,6.5rem)] tracking-tight leading-[1.08] sm:leading-[1.05] pb-[0.12em] mb-8 sm:mb-10">
-            Let&apos;s build
-            <br />
-            something{' '}
-            <span className="font-serif italic font-normal text-primary">loud.</span>
+        <Reveal delay={1} className="overflow-visible">
+          <h2 className="contact-heading font-display font-bold tracking-tight text-foreground mb-8 sm:mb-10">
+            <span className="contact-heading-line">Let&apos;s build</span>
+            <span className="contact-heading-line">
+              something{' '}
+              <span className="font-serif italic font-normal text-primary">loud.</span>
+            </span>
           </h2>
         </Reveal>
 
