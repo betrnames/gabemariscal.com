@@ -107,7 +107,7 @@ const projects: Project[] = [
     name: 'Turlock Chiro',
     role: 'Local Business',
     desc: 'SEO-optimized chiropractor site for California Central Valley.',
-    url: '#',
+    url: 'https://turlockchiropractor.com',
     image: '/projects/turlock-chiro.png',
     year: '2024',
     tags: ['Local', 'SEO'],
