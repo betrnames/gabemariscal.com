@@ -282,21 +282,49 @@ html.light .aurora-blob-3 {
 }
 
 /* ─── Contact heading (Syne “g” descenders need room) ─── */
+#contact {
+  position: relative;
+  z-index: 5;
+  overflow: visible;
+}
+
+/* Wrapper: no transform after reveal — transforms create a layer that clips glyph overflow */
+.contact-heading-reveal {
+  position: relative;
+  z-index: 30;
+  overflow: visible !important;
+  /* Keep full “g” descender inside the paint box while animating */
+  padding-bottom: 0.55em;
+  margin-bottom: -0.35em; /* pull following copy up without covering the g */
+}
+
 .contact-heading {
+  position: relative;
+  z-index: 31;
   font-size: clamp(2.5rem, 8vw, 6.5rem);
   letter-spacing: -0.03em;
-  line-height: 1.15;
-  overflow: visible;
-  /* Glyphs in Syne sit outside the em box — pad so “g” isn’t sliced */
-  padding-bottom: 0.28em;
+  line-height: 1.22;
+  overflow: visible !important;
+  padding-bottom: 0.35em;
 }
 
 .contact-heading-line {
+  position: relative;
+  z-index: 32;
   display: block;
+  overflow: visible !important;
+  padding-bottom: 0.18em;
+}
+
+/* “something” needs its own box so the g isn’t sliced by the line box */
+.contact-heading-word {
+  display: inline-block;
+  position: relative;
+  z-index: 33;
+  padding-bottom: 0.22em;
+  line-height: 1.25;
   overflow: visible;
-  /* Separate line boxes so descenders aren’t crushed by the next line */
-  padding-bottom: 0.08em;
-  margin-bottom: 0.02em;
+  vertical-align: baseline;
 }
 
 /* ─── Reveal on scroll ─── */
@@ -311,7 +339,16 @@ html.light .aurora-blob-3 {
 
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  /* none = no compositor clip of font descenders after animation */
+  transform: none;
+}
+
+/* Contact heading: fade only — never use transform (clips Syne g) */
+.contact-heading-reveal.reveal {
+  transform: none;
+}
+.contact-heading-reveal.reveal.is-visible {
+  transform: none;
 }
 
 .reveal-delay-1 {

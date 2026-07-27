@@ -894,12 +894,14 @@ function Contact() {
           </p>
         </Reveal>
 
-        <Reveal delay={1} className="overflow-visible">
+        <Reveal delay={1} className="contact-heading-reveal">
           <h2 className="contact-heading font-display font-bold tracking-tight text-foreground mb-8 sm:mb-10">
             <span className="contact-heading-line">Let&apos;s build</span>
             <span className="contact-heading-line">
-              something{' '}
-              <span className="font-serif italic font-normal text-primary">loud.</span>
+              <span className="contact-heading-word">something</span>{' '}
+              <span className="font-serif italic font-normal text-primary relative z-[34]">
+                loud.
+              </span>
             </span>
           </h2>
         </Reveal>
