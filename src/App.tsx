@@ -54,6 +54,15 @@ const projects: Project[] = [
     featured: true,
   },
   {
+    name: 'Engineering.bot',
+    role: 'Domain Lander',
+    desc: 'Premium .bot domain lander for physical AI — claim flow, market proof, and conversion-focused design.',
+    url: 'https://engineering.bot',
+    image: '/projects/engineering-bot.png',
+    year: '2025',
+    tags: ['Domain', 'Brand', 'Lander'],
+  },
+  {
     name: 'LivingWage.now',
     role: 'Data Visualization',
     desc: 'Living wage calculator by region. Feature-complete product, shipped on Vercel.',
