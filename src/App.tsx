@@ -12,6 +12,11 @@ import {
   type Theme,
 } from './lib/theme'
 
+function isHomePath(pathname: string) {
+  const p = pathname.replace(/\/+$/, '') || '/'
+  return p === '/' || p === '/index.html'
+}
+
 /* ═══════════════════════════════════════════
    Data
    ═══════════════════════════════════════════ */
@@ -326,10 +331,10 @@ function Nav({ theme, onToggleTheme }: { theme: Theme; onToggleTheme: () => void
   }, [open])
 
   const links = [
-    { href: safeHref('#work'), label: 'Work' },
-    { href: safeHref('#services'), label: 'Services' },
-    { href: safeHref('#about'), label: 'About' },
-    { href: safeHref('#contact'), label: 'Contact' },
+    { href: '/#work', label: 'Work' },
+    { href: '/#services', label: 'Services' },
+    { href: '/#contact', label: 'Contact' },
+    { href: '/#about', label: 'About' },
   ]
 
   return (
@@ -343,7 +348,7 @@ function Nav({ theme, onToggleTheme }: { theme: Theme; onToggleTheme: () => void
       >
         <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12 h-16 sm:h-20 flex items-center justify-between">
           <a
-            href="#"
+            href="/"
             className="font-display font-bold text-sm sm:text-base tracking-tight text-foreground"
             onClick={() => setOpen(false)}
           >
@@ -369,7 +374,7 @@ function Nav({ theme, onToggleTheme }: { theme: Theme; onToggleTheme: () => void
               Available
             </span>
             <a
-              href="#contact"
+              href="/#contact"
               className="text-[13px] font-medium bg-primary text-primary-foreground rounded-full px-4 py-2 hover:brightness-110 transition-all duration-300"
             >
               Let&apos;s talk
@@ -960,11 +965,14 @@ function Footer() {
           </p>
         </div>
 
-        <div className="flex items-center gap-6 text-xs font-mono text-muted-foreground">
-          <a href="#work" className="hover:text-foreground transition-colors">
+        <div className="flex flex-wrap items-center gap-6 text-xs font-mono text-muted-foreground">
+          <a href="/" className="hover:text-foreground transition-colors">
+            Home
+          </a>
+          <a href="/#work" className="hover:text-foreground transition-colors">
             Work
           </a>
-          <a href="#about" className="hover:text-foreground transition-colors">
+          <a href="/#about" className="hover:text-foreground transition-colors">
             About
           </a>
           <a
@@ -990,12 +998,89 @@ function Footer() {
 }
 
 /* ═══════════════════════════════════════════
+   404
+   ═══════════════════════════════════════════ */
+
+function NotFound({ theme, onToggleTheme }: { theme: Theme; onToggleTheme: () => void }) {
+  useEffect(() => {
+    document.title = '404 — Page not found | Gabe Mariscal'
+  }, [])
+
+  return (
+    <div className="noise min-h-screen transition-colors duration-300 flex flex-col">
+      <Nav theme={theme} onToggleTheme={onToggleTheme} />
+      <main className="relative flex-1 flex flex-col justify-center overflow-x-clip">
+        <div className="aurora absolute inset-0 overflow-hidden" aria-hidden>
+          <div className="aurora-blob aurora-blob-1" />
+          <div className="aurora-blob aurora-blob-2" />
+          <div className="aurora-blob aurora-blob-3" />
+          <div className="aurora-vignette" />
+        </div>
+
+        <div className="relative z-10 max-w-[1600px] w-full mx-auto px-5 sm:px-8 lg:px-12 py-28 sm:py-32">
+          <p className="font-mono text-[11px] tracking-[0.28em] uppercase text-primary mb-6">
+            Error 404
+          </p>
+          <h1 className="font-display font-extrabold tracking-[-0.04em] leading-[0.95] text-foreground select-none">
+            <span className="block text-[clamp(3.5rem,14vw,8rem)]">Lost</span>
+            <span className="block text-[clamp(3.5rem,14vw,8rem)]">
+              signal
+              <span className="text-primary">.</span>
+            </span>
+          </h1>
+          <p className="mt-8 max-w-md text-base sm:text-lg text-muted-foreground leading-relaxed">
+            This page doesn&apos;t exist — or it moved. Head home and keep building.
+          </p>
+          <div className="mt-10 flex flex-wrap items-center gap-4 sm:gap-6">
+            <a
+              href="/"
+              className="group inline-flex items-center gap-3 bg-primary text-primary-foreground font-medium text-sm rounded-full pl-6 pr-5 py-3.5 hover:brightness-110 transition-all duration-300"
+            >
+              Back to homepage
+              <span className="w-7 h-7 rounded-full bg-primary-foreground/15 flex items-center justify-center group-hover:translate-x-0.5 transition-transform duration-300">
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </span>
+            </a>
+            <a
+              href="/#work"
+              className="link-underline text-sm text-muted-foreground hover:text-foreground transition-colors duration-300 py-1"
+            >
+              View work
+            </a>
+          </div>
+          <p className="mt-16 font-mono text-xs text-muted-foreground/60 tracking-wider">
+            gabemariscal.com{typeof window !== 'undefined' ? window.location.pathname : ''}
+          </p>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  )
+}
+
+/* ═══════════════════════════════════════════
    App shell
    ═══════════════════════════════════════════ */
 
-export default function App() {
+function HomePage({ theme, onToggleTheme }: { theme: Theme; onToggleTheme: () => void }) {
   const progress = useScrollProgress()
-  const { theme, toggle } = useTheme()
+
+  useEffect(() => {
+    document.title = 'Gabe Mariscal — Creative Designer & Developer'
+  }, [])
+
+  // Honor hash links after navigation from 404 (/#work)
+  useEffect(() => {
+    const hash = window.location.hash
+    if (!hash || hash.length < 2) return
+    const id = hash.slice(1)
+    const el = document.getElementById(id)
+    if (el) {
+      requestAnimationFrame(() => {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+    }
+  }, [])
 
   return (
     <div className="noise min-h-screen transition-colors duration-300">
@@ -1004,7 +1089,7 @@ export default function App() {
         style={{ transform: `scaleX(${progress})` }}
         aria-hidden
       />
-      <Nav theme={theme} onToggleTheme={toggle} />
+      <Nav theme={theme} onToggleTheme={onToggleTheme} />
       <main>
         <Hero />
         <MarqueeBand />
@@ -1016,4 +1101,17 @@ export default function App() {
       <Footer />
     </div>
   )
+}
+
+export default function App() {
+  const { theme, toggle } = useTheme()
+  const [path] = useState(() =>
+    typeof window !== 'undefined' ? window.location.pathname : '/'
+  )
+
+  if (!isHomePath(path)) {
+    return <NotFound theme={theme} onToggleTheme={toggle} />
+  }
+
+  return <HomePage theme={theme} onToggleTheme={toggle} />
 }

@@ -53,6 +53,8 @@ export default defineConfig({
     // Fail the build if a chunk is suspiciously large (supply-chain / bloat signal)
     chunkSizeWarningLimit: 600,
   },
+  // SPA fallback so /any-missing-path serves index.html (404 UI in React)
+  appType: 'spa',
   server: {
     headers: {
       'X-Content-Type-Options': 'nosniff',
