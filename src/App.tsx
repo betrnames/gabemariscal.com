@@ -818,8 +818,12 @@ function About() {
 
           <div className="lg:col-span-7 lg:pt-12 space-y-8">
             <Reveal delay={1}>
-              <p className="text-lg sm:text-xl text-foreground/90 leading-relaxed max-w-2xl">
-                I&apos;m a web developer and designer based in California&apos;s Central Valley.
+              <p className="text-lg sm:text-xl text-foreground/90 leading-relaxed max-w-2xl font-medium">
+                Gabe Mariscal is a designer and developer based in California&apos;s Central Valley who builds premium websites, AI tools, and brands.
+              </p>
+            </Reveal>
+            <Reveal delay={1}>
+              <p className="text-base text-muted-foreground leading-relaxed max-w-2xl">
                 I work at the intersection of product, brand, and engineering — building
                 things that look expensive and load fast.
               </p>
@@ -974,6 +978,9 @@ function Footer() {
           </a>
           <a href="/#about" className="hover:text-foreground transition-colors">
             About
+          </a>
+          <a href="/llms.txt" className="hover:text-foreground transition-colors">
+            llms.txt
           </a>
           <a
             href={safeHref('mailto:contact@gabemariscal.com')}

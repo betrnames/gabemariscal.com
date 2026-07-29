@@ -1,0 +1,30 @@
+# Gabe Mariscal
+
+> Creative designer and developer based in California's Central Valley. Builds premium websites, AI tools, and brands.
+
+## What this is
+Personal portfolio and professional site for Gabe Mariscal — a designer-developer who ships end-to-end: brand identity, UI/UX, frontend engineering, and deployment. Specializes in React, TypeScript, Next.js, and Tailwind CSS. Runs BetrNames, a domain investment portfolio.
+
+## Services
+- Web design and development (React, Next.js, Tailwind)
+- Brand identity and visual systems
+- AI-powered tools and applications
+- Domain strategy and acquisition
+
+## Featured projects
+- https://deposit.now — x402 AI-agent deposit API on Base
+- https://livingwage.now — living wage calculator with state/county data
+- https://adfuel.ai — AI ad agency
+- https://vox.chat — AI voice chat platform
+- https://betrnames.com — domain portfolio marketplace
+- https://turlockchiropractor.com — local chiropractor directory
+
+## Key pages
+- https://gabemariscal.com/ — portfolio homepage
+- https://gabemariscal.com/#work — featured work
+- https://gabemariscal.com/#services — services offered
+- https://gabemariscal.com/#about — background and approach
+- https://gabemariscal.com/#contact — get in touch
+
+## Contact
+- contact@gabemariscal.com
