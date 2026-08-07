@@ -1,32 +1,44 @@
-# React + TypeScript + Vite
+# gabemariscal.com
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+**Personal portfolio** — designer/builder site showcasing shipped products (Vox, LivingWage, x402dir, Chanclazo, DEFCON.si, and more).
 
-Currently, two official plugins are available:
+**Live:** [gabemariscal.com](https://gabemariscal.com)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+![Portfolio open graph](public/og-image.png)
 
-## React Compiler
+## What it is
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Portfolio homepage with project cards  
+- Project thumbnails under `public/projects/`  
+- Vite + React + TypeScript  
 
-## Expanding the Oxlint configuration
+## Project previews (in-repo)
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+| Project | Thumbnail |
+|---------|-----------|
+| Vox.chat | ![vox](public/projects/vox-chat.png) |
+| LivingWage.now | ![lw](public/projects/livingwage.png) |
+| x402dir | ![x402](public/projects/x402dir.png) |
+| Chanclazo | ![chanclazo](public/projects/chanclazo.png) |
+| DEFCON.si | ![defcon](public/projects/defcon.png) |
+| AdFuel | ![adfuel](public/projects/adfuel.png) |
+| Turlock Chiro | ![chiro](public/projects/turlock-chiro.png) |
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+## Stack
+
+| Layer | Tech |
+|-------|------|
+| Frontend | React, TypeScript, Vite |
+| Hosting | Vercel |
+
+## Quick start
+
+```bash
+npm install
+npm run dev
+npm run build
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## License
+
+All rights reserved.
